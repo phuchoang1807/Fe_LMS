@@ -159,11 +159,9 @@
     ).slice(0, maxTitleLength);
 
 
-     const hasInvalidTech = techs.some((t) => {
-      const qty = String(t.soLuong ?? "").trim();
-      const isValidNumber = /^\d+$/.test(qty) && Number(qty) > 0;
-      return !t.technologyId || !qty || !isValidNumber;
-    });
+    const hasInvalidTech = techs.some(
+      (t) => !t.technologyId || !t.soLuong || Number(t.soLuong) <= 0
+    );
 
 
     // ====== Submit ======
