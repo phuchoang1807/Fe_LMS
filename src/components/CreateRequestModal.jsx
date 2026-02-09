@@ -100,7 +100,21 @@
     const handleDateChange = (value) => {
       setExpectedDate(value);
 
-      setDateError("");
+        if (!value) {
+        setDateError(""); 
+        return;
+      }
+      const selected = new Date(value);
+      // So sánh với minDate (đã trừ giờ phút giây để so sánh chính xác ngày)
+      const minDateZeroTime = new Date(minDateStr); 
+      if (selected < minDateZeroTime) {
+        setDateError(
+          "Vui lòng chọn ngày bàn giao tối thiểu sau 2 tháng kể từ hôm nay."
+        );
+      } else {
+        setDateError("");
+     }
+
     };
 
     // ====== Tech rows ======
@@ -112,7 +126,12 @@
         const updated = [...prev];
         if (field === "soLuong") {
 
-                    updated[i].soLuong = value;
+          if (value === "") {
+            updated[i].soLuong = "";
+          } else {
+            const num = Number(value);
+            updated[i].soLuong = Number.isNaN(num) || num <= 0 ? "" : value;
+          }
         } else {
           updated[i][field] = value;
         }
@@ -157,8 +176,6 @@
         ? `${basePrefix}${titleMain.trim()}${baseSuffix}`
         : `${basePrefix}${baseSuffix}`
     ).slice(0, maxTitleLength);
-
-
     const hasInvalidTech = techs.some(
       (t) => !t.technologyId || !t.soLuong || Number(t.soLuong) <= 0
     );
