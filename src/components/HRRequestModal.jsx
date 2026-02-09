@@ -59,9 +59,15 @@ export default function HRRequestModal({
 
 
   const handleGoToPlanPage = useCallback(() => {
-  navigate("/recruitment/plan");
-  onClose?.();
-}, [navigate, onClose]);
+    const planName = planMeta?.planName?.trim();
+    if (planName) {
+      const query = new URLSearchParams({ planName }).toString();
+      navigate(`/recruitment/plan?${query}`, { state: { planName } });
+    } else {
+      navigate("/recruitment/plan");
+    }
+    onClose?.();
+  }, [navigate, onClose, planMeta?.planName]);
 
   // ====== LOAD DANH MỤC CÔNG NGHỆ ======
   useEffect(() => {
