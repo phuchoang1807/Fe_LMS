@@ -343,7 +343,7 @@ const HrRequestPage = () => {
         const da = a.createdAt ? new Date(a.createdAt).getTime() : 0;
         const db = b.createdAt ? new Date(b.createdAt).getTime() : 0;
 
-                return da - db;
+                return db - da;
         
       }),
     [filteredRequests]
