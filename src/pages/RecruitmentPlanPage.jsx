@@ -624,10 +624,9 @@ if (planStatus !== "NEW") {
                       <td className="actions-cell text-center">
                         <div style={!canInteract ? { pointerEvents: "none", opacity: 0.4, cursor: "not-allowed" } : {}} title={!canInteract ? "Bạn không có quyền thao tác" : ""}>
                           <ActionButtons 
-                            onView={() => {}}
-                            // ✅ HR & Admin được sửa khi kế hoạch Mới
+                            onView={() => handleViewDetails(plan)}                            // ✅ HR & Admin được sửa khi kế hoạch Mới
                              onEdit={() => {}} 
-                             canEdit={(role === 'HR' || role === 'SUPER_ADMIN') && plan.status === 'NEW'}
+                            canEdit={(role === "HR" || role === "SUPER_ADMIN") && plan.status === "NEW"}
                           />
                         </div>
                       </td>
